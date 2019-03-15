@@ -8,4 +8,4 @@
 
 실험 보고
 
-![](https://avatars0.githubusercontent.com/u/9919?s=280&v=4)
+![](https://drive.google.com/file/d/1-KJMuHG09c601lCfhNQhdVa_9zCffIpM/view?usp=sharing)
