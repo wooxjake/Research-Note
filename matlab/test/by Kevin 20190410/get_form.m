@@ -1,11 +1,13 @@
+%%% get_form by kevin
+%%% made by lee young seong 20190417
+%%% data : questionnaire
+
 clc
 clear
 %%%%%%%%  04.10~04.15 [running shoes by kevin]
-%%%%%%%%  피험자 1번 김태우 신발 13번을 신발 1번으로 체크해서 1번 신발이 두개임. 수정 필요
-%%%%%%%%  subject.xlsx 파일 있어야 함 -> 피험자 이름
 
-
-% no.	date	time	name
+% subject infor.
+% no.	date	time	name.
 subject = {'1','4.10.','13','김태우';
 '2','4.10.','13','김희수';
 '3','4.10.','16','도지민';
@@ -27,83 +29,45 @@ subject = {'1','4.10.','13','김태우';
 '19','4.15.','16','기병수';
 '20','4.15.','16','신원학'};
 
+% 신발 갯수
+shoes_num = 18;
 
+% excel 파일에서 불러오기.
+raw_data=importdata('By Kevin & FPS(응답).xlsx');
+data=raw_data.textdata;
+data(2:end,3:23)=num2cell(raw_data.data);
 
-% raw_data=GetGoogleSpreadsheet('1Fx7dWE7lHLgy9eqXyQsnSRfpRhZhoUYPhOfF46A2R8Q');
-
-% raw_data=readtable('By Kevin & FPS.xlsx');
-%subject=readtable('subject.xlsx');
-
-[raw_data,txtData]  = xlsread('By Kevin & FPS.xlsx');
-txtData(2:end,3:23)=num2cell(raw_data);
-raw_data=txtData;
-data=raw_data;
+% importdat 외 또 다른 방법. 
+%  [data_double,txtData]  = xlsread('By Kevin & FPS.xlsx');  % -> data_double 는 숫자만 인식하는 double 형식 / txtData는 문자를 인식한 cell 형식  
+%  data=txtData; data(2:end,3:23)=num2cell(raw_data.data);   % -> 숫자(double형식) 와 문자(cell형식)를 data(cell 형식)으로 통합
 
 
 %%% 날짜를 연도,월,일 로만 나타내기. 
 
-for i=1:length(data)
+for i=2:length(data)
     
-    data.x_____{i,1}=str2num(data.x_____{i,1}([3;4;6;7;9;10]));
-    
-end
-
-%%% 피험자 이름 숫자로 바꾸기 (피험자 명 : subject 테이블)
-
-for i = 1 : length(subject.name)
-    
-    for ii = 1 : length(data.Q1_1___________);
-    
-    switch data.Q1_1___________{ii,1}
-        
-        case subject.name{i,1}
-            
-            data.Q1_1___________{ii,1}=subject.no_(i,1);
-    
-    end
-              
-    end
+    data{i,1}=str2num(data{i,1}([3;4;6;7;9;10]));
     
 end
 
-%%% table 형식을 cell 형식으로 변환. 
-data_cell=table2cell(data);          
-
-%%% table 형식을 double 형식으로 변환.
-for i=1: length(data_cell)
-    for ii=1:23
-    data_double(i,ii)=data_cell{i,ii}(1,1);
-    end
-end
-
+%%% subject별, shoes 별로 나누기.
 %%% subject 별로..
-for i= 1: length(subject.no_)
-    
-        [row,cloumn]=find(data_double(:,2)==i);
-      
-        for ii = 1 : length(row)
-        
-            for iii = 1 : 25
-           
-                eval(['subject_data.s',num2str(i),'{ii,iii}=data_cell{row(ii,1),iii};']);
 
-            end
-        
-        end
-    end
+for i = 1 : length(subject)
     
-%%% shoes 별로
-for i= 1: length(data.Q1_2____________)
-    
-        [row,cloumn]=find(data_double(:,3)==i);
-      
-        for ii = 1 : length(row)
-        
-            for iii = 1 : 25
-           
-                eval(['shoes_data.s',num2str(i),'{ii,iii}=data_cell{row(ii,1),iii};']);
+    [row,cloumn] = find(strcmp(data(:,2),subject{i, 4}));     % find 문자 할때는 strcmp 사용! 또는 strfind
 
-            end
-        
-        end
+    eval(['subject_data.s',num2str(i),'=data(row(:,1),:);']);
+    eval(['subject_data.s',num2str(i),'(:,2)=[];']);
+
+end
+
+%%% shoes 별로..
+for i = 1 : shoes_num
+    for ii = 2: length(data)
+        aaa(ii,1)=data{ii,3}(1,1); 
+        [row,cloumn] = find(aaa(:,1)==i);
+        eval(['shoes_data.s',num2str(i),'=data(row(:,1),:);']);
     end
+    eval(['shoes_data.s',num2str(i),'(:,3)=[];']);
+end
