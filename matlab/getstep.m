@@ -22,7 +22,6 @@ function event=getstep(x)
 
 	for i= 1:length(f)
 
-
 		if f(i,3)~=0 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% start
 
 			if f_n == 0
@@ -49,6 +48,8 @@ function event=getstep(x)
 
 		end
 
-	end
+    end
+    
+    event=f_e;
 
 end
