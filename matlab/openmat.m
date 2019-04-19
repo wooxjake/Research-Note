@@ -6,6 +6,7 @@ function qtm=openmat(path)
 
 x=load(path);
 x_n=fieldnames(x);
+qtm.f_name=x_n;
 eval(['x=x.' x_n{1,1}]);
 
 %% basic_info
