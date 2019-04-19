@@ -1,0 +1,37 @@
+%%% funnign sheos by kevin
+%%% made by lee young seong 20190418
+%%% data : Force, Marker, Angle, EMG
+
+%%% standing -> 전체 프레임의 평균값으로 설정. 
+
+clc
+clear
+
+info.path='C:\Users\user\Documents\MATLAB\qtm test\s1s2ts.mat';
+raw=openmat(info.path);
+
+info.marker_name=fieldnames(raw.marker);
+info.angle_name=fieldnames(raw.angle);
+
+ 
+%%% Marker
+ for i = 1 : length(raw.marker.R_Th1)
+          
+          for ii= 1: length(info.marker_name)
+              
+              eval(['event.marker.e',num2str(i),'.',info.marker_name{ii,1},'= mean(raw.marker','.',info.marker_name{ii,1},'(:,:));']);
+        
+      end
+      
+ end
+
+ %%% Angle
+ for i = 1 : length(raw.angle.R_Th)
+          
+          for ii= 1: length(info.angle_name)
+              
+              eval(['event.angle.e',num2str(i),'.',info.angle_name{ii,1},'= mean(raw.angle','.',info.angle_name{ii,1},'(:,:));']);
+        
+      end
+      
+ end
