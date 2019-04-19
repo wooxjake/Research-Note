@@ -1,6 +1,6 @@
 %%% funnign sheos by kevin
 %%% made by lee young seong 20190418
-%%% data : Force, Marker, Angle, EMG 
+%%% data : Force, Marker, Angle, EMG
 
 clc
 clear
@@ -23,7 +23,7 @@ info.emg_ch = [1, 17; 2,18;
 3, 19; 4, 20; 
 5,17; 6,18; 
 7,29; 8,20; 
-9,17; 10,18; 
+9,17;10,18; 
 11,17; 12,18; 
 13, 19; 14,20;
 15,17; 16,18;
