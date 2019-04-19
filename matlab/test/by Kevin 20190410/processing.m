@@ -1,4 +1,5 @@
 %%% funnign sheos by kevin
+%%% made by lee young seong 20190418
 %%% data : Force, Marker, Angle, EMG 
 
 clc
