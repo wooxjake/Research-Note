@@ -4,8 +4,8 @@
 
 clc
 clear
-
-info.path='C:\Users\user\Documents\MATLAB\qtm test\s1s2tr.mat';
+ 
+info.path='C:\Users\user\Documents\MATLAB\qtm test\s1s1tr.mat';
 raw=openmat(info.path);
 
 % clc
@@ -13,9 +13,14 @@ raw=openmat(info.path);
 % info.path='C:\Users\user\Documents\MATLAB\qtm test\s1s2tr.mat';
 
 event.event_force=getstep(raw);
+event.event_force(1,:)= [ ]
+event.event_force(end,:)= [ ]
 event.event_marker=round(getstep(raw)/10);
+event.event_marker(1,:)= [ ]
+event.event_marker(end,:)= [ ]
 info.marker_name=fieldnames(raw.marker);
 info.angle_name=fieldnames(raw.angle);
+[info.filepath,info.name,info.ext]= fileparts(info.path)
 
 % EMG info.channel
 % subject_no.	info.channel
@@ -77,3 +82,34 @@ for i = 1 : length(event.event_force)-1
     end
     
 end
+   
+
+%%% Right EMG/Force 구하기  1열 : emg / 2열 : force(x), 3열 : force(y), 4열  :force(z)
+
+event.emg_force=event.emg;
+info.letter=fieldnames(event.emg)
+
+for i = 1 : length(info.letter)
+    
+    if length(info.letter{i,1})==2
+        info.letter{i,1}=str2num(info.letter{i,1}([2]));
+    end
+    
+    if length(info.letter{i,1})==3
+        info.letter{i,1}=str2num(info.letter{i,1}([2;3]));
+    end    
+    
+        if length(info.letter{i,1})==4
+        info.letter{i,1}=str2num(info.letter{i,1}([2;3;4]));
+    end
+    
+end
+
+for i = 1 : length(info.letter)
+    
+    eval(['event.emg_force.e',num2str(info.letter{i,1}),'(:,2:4)=event.force.e',num2str(info.letter{i,1}),'(:,1:3);']);
+end
+
+clear i ; clear ii
+% 
+% save (info.name)
