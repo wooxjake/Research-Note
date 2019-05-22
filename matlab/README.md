@@ -1,2 +1,24 @@
 # Research-Note
 Fila Footweear Biomechanics Research Note
+
+
+function [ PSD_cf ] = PSD( sf,data )
+%  UNTITLED2 이 함수의 요약 설명 위치
+%  data는 curoff_frequncy를 얻기 위한 데이터만....
+
+% y=data(:,5); 
+
+[rr, cc]=size(data);
+
+[py, freq]=psd(data,rr,sf,boxcar(rr));
+
+aa=sum(py);
+
+bb=cumsum((py/aa)*100);
+
+% 90% 95%, 99.5%, 99.9% by referece 99%가 적정 
+cc_99=find(bb<=99);   %%%  psd 90%
+
+PSD_cf=max(cc_99)
+
+end
