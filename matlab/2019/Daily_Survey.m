@@ -12,22 +12,22 @@ for i=1:length(data.brand)
 
     switch data.brand{i,1}
         
-        case '³ªÀÌÅ° º£ÀÌÆÛ ÁÜ'
+        case 'ë‚˜ì´í‚¤ ë² ì´í¼ ì¤Œ'
         data.brand{i,1}=1;
             
-        case '¾Æµğ´Ù½º ¹Ù¸®ÄÉÀÌµå'
+        case 'ì•„ë””ë‹¤ìŠ¤ ë°”ë¦¬ì¼€ì´ë“œ'
         data.brand{i,1}=2;    
             
-        case 'ÈÙ¶ó ¿¢½Ã·ç½º 3'
+        case 'íœ ë¼ ì—‘ì‹œë£¨ìŠ¤ 3'
         data.brand{i,1}=3;
             
-        case 'ÈÙ¶ó ¿¢½Ã·ç½º 2'
+        case 'íœ ë¼ ì—‘ì‹œë£¨ìŠ¤ 2'
         data.brand{i,1}=4;
             
     end
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    if length(data.worktime{i,1})==3   %%% ±ÛÀÚ ¼ö 3°³ 
+    if length(data.worktime{i,1})==3   %%% ê¸€ì ìˆ˜ 3ê°œ 
         
         data.worktime{i,1}=str2num(data.worktime{i,1}(1));          
         
@@ -37,7 +37,7 @@ for i=1:length(data.brand)
         
     elseif length(data.worktime{i,1})==7
         
-        if data.worktime{i,1}=='¿îµ¿½Ã°£ ¾øÀ½'
+        if data.worktime{i,1}=='ìš´ë™ì‹œê°„ ì—†ìŒ'
             
             data.worktime{i,1}=0;
             
